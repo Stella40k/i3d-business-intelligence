@@ -1,0 +1,54 @@
+CLIENTES
+     │
+     │ 1
+     │
+     └──────────────< PEDIDOS
+                          │
+                          │1
+                          │
+                          └──────────────< DETALLE_PEDIDO
+                                                │
+                           ┌────────────────────┼────────────────────┐
+                           │                    │                    │
+                           ▼                    ▼                    ▼
+                     PRODUCTOS            VARIANTES       PERSONALIZACIONES
+                           │                    │
+                           │                    │
+                  ┌────────┘                    │
+                  │                             │
+                  ▼                             ▼
+        PRODUCTO_CATEGORIA              ORDENES_PRODUCCION
+                  │                             │
+                  ▼                             ▼
+            CATEGORIAS               ESTADOS_PRODUCCION
+
+PRODUCTOS
+      │
+      ▼
+PRODUCTO_COLECCION
+      │
+      ▼
+COLECCIONES
+
+
+PEDIDOS
+    │
+    └──────────────< TRANSACCIONES
+                            │
+                            ▼
+                     ESTADOS_PAGO
+
+
+COMPRAS
+      │
+      ▼
+DETALLE_COMPRA
+      │
+      ▼
+INSUMOS
+
+
+FINANCIAMIENTOS
+      │
+      ▼
+TRANSACCIONES

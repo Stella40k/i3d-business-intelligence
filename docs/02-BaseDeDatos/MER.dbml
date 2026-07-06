@@ -1,0 +1,287 @@
+Project JAM_Studio_BI {
+  database_type: "PostgreSQL"
+  Note: "Modelo Entidad Relación oficial - JAM Studio Business Intelligence"
+}
+
+/////////////////////////////////////////////////////
+// COMERCIAL
+/////////////////////////////////////////////////////
+
+Table clientes {
+  id uuid [pk]
+  nombre varchar
+  telefono varchar
+  email varchar
+  canal_contacto_id uuid [null]
+  observaciones text
+  created_at timestamp
+}
+
+Table canales_contacto {
+  id uuid [pk]
+  nombre varchar
+}
+
+Table estados_pedido {
+  id uuid [pk]
+  nombre varchar
+}
+
+Table estados_pago {
+  id uuid [pk]
+  nombre varchar
+}
+
+Table pedidos {
+  id uuid [pk]
+  cliente_id uuid [null]
+  estado_pedido_id uuid
+  estado_pago_id uuid
+  fecha timestamp
+  observaciones text
+  created_at timestamp
+}
+
+Table detalle_pedido {
+  id uuid [pk]
+
+  pedido_id uuid
+
+  variante_id uuid
+
+  cantidad int
+
+  precio_unitario decimal
+
+  costo_unitario decimal
+
+  descuento decimal
+
+  subtotal decimal
+}
+
+/////////////////////////////////////////////////////
+// CATALOGO
+/////////////////////////////////////////////////////
+
+Table productos {
+  id uuid [pk]
+  nombre varchar
+  descripcion text
+  activo boolean
+  created_at timestamp
+}
+
+Table variantes {
+  id uuid [pk]
+
+  producto_id uuid
+
+  nombre varchar
+
+  precio_actual decimal
+
+  costo_actual decimal
+
+  tiempo_produccion_horas int
+
+  activo boolean
+}
+
+Table categorias {
+  id uuid [pk]
+  nombre varchar
+}
+
+Table producto_categoria {
+  producto_id uuid
+  categoria_id uuid
+}
+
+Table colecciones {
+  id uuid [pk]
+  nombre varchar
+}
+
+Table producto_coleccion {
+  producto_id uuid
+  coleccion_id uuid
+}
+
+/////////////////////////////////////////////////////
+// PRODUCCION
+/////////////////////////////////////////////////////
+
+Table estados_produccion {
+  id uuid [pk]
+  nombre varchar
+  orden int
+}
+
+Table ordenes_produccion {
+
+  id uuid [pk]
+
+  detalle_pedido_id uuid
+
+  estado_actual_id uuid
+
+  fecha_inicio timestamp
+
+  fecha_fin timestamp
+
+  observaciones text
+}
+
+Table historial_produccion {
+
+  id uuid [pk]
+
+  orden_produccion_id uuid
+
+  estado_produccion_id uuid
+
+  fecha timestamp
+
+  observaciones text
+}
+
+Table personalizaciones {
+
+  id uuid [pk]
+
+  detalle_pedido_id uuid
+
+  descripcion text
+
+  archivo varchar
+
+  observaciones text
+}
+
+Table insumos {
+
+  id uuid [pk]
+
+  nombre varchar
+
+  unidad_medida varchar
+
+  costo_unitario decimal
+
+  stock_actual decimal
+}
+
+/////////////////////////////////////////////////////
+// FINANZAS
+/////////////////////////////////////////////////////
+
+Table transacciones {
+
+  id uuid [pk]
+
+  pedido_id uuid [null]
+
+  financiamiento_id uuid [null]
+
+  tipo varchar
+
+  metodo_pago varchar
+
+  monto decimal
+
+  fecha timestamp
+
+  observaciones text
+}
+
+Table compras {
+
+  id uuid [pk]
+
+  fecha timestamp
+
+  proveedor varchar
+
+  total decimal
+
+  observaciones text
+}
+
+Table detalle_compra {
+
+  id uuid [pk]
+
+  compra_id uuid
+
+  insumo_id uuid
+
+  cantidad decimal
+
+  costo_unitario decimal
+
+  subtotal decimal
+}
+
+Table financiamientos {
+
+  id uuid [pk]
+
+  nombre varchar
+
+  monto decimal
+
+  destino text
+
+  fecha_inicio timestamp
+
+  fecha_reintegro timestamp
+
+  monto_reintegrado decimal
+
+  observaciones text
+}
+
+/////////////////////////////////////////////////////
+// RELACIONES
+/////////////////////////////////////////////////////
+
+Ref: clientes.canal_contacto_id > canales_contacto.id
+
+Ref: pedidos.cliente_id > clientes.id
+
+Ref: pedidos.estado_pedido_id > estados_pedido.id
+
+Ref: pedidos.estado_pago_id > estados_pago.id
+
+Ref: detalle_pedido.pedido_id > pedidos.id
+
+Ref: detalle_pedido.variante_id > variantes.id
+
+Ref: variantes.producto_id > productos.id
+
+Ref: producto_categoria.producto_id > productos.id
+
+Ref: producto_categoria.categoria_id > categorias.id
+
+Ref: producto_coleccion.producto_id > productos.id
+
+Ref: producto_coleccion.coleccion_id > colecciones.id
+
+Ref: ordenes_produccion.detalle_pedido_id > detalle_pedido.id
+
+Ref: ordenes_produccion.estado_actual_id > estados_produccion.id
+
+Ref: historial_produccion.orden_produccion_id > ordenes_produccion.id
+
+Ref: historial_produccion.estado_produccion_id > estados_produccion.id
+
+Ref: personalizaciones.detalle_pedido_id > detalle_pedido.id
+
+Ref: detalle_compra.compra_id > compras.id
+
+Ref: detalle_compra.insumo_id > insumos.id
+
+Ref: transacciones.pedido_id > pedidos.id
+
+Ref: transacciones.financiamiento_id > financiamientos.id
