@@ -21,4 +21,4 @@ class ClienteService{
         return await clienteRepository.findById(id);
     }
 }
-export default new clienteRepository();
+export default new ClienteService();

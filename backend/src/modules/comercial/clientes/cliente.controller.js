@@ -26,4 +26,4 @@ class ClienteController{
         }
     }
 }
-export default new ClienteController
+export default new ClienteController();
