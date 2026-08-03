@@ -25,5 +25,38 @@ class ClienteController{
             next(error);
         }
     }
+    async update(req, res, next){
+        try {
+            const cliente= await clienteService.update(
+                req.params.id,
+                req.body
+            );
+            if(!cliente){
+                return res.status(404).json({
+
+                    message: "Cliente no encontrado."
+                });
+            }
+            return res.json(cliente);
+
+        } catch (error) {
+            next(error);
+        }
+    }
+    async delete(req, res, next){
+        try {
+            const cliente = await clienteService.delete(req.params.id);
+            if(!cliente){
+                return res.status(404).json({
+                    message: "Cliente no encontrado."
+                });
+            }
+            return res.json({
+                message: "Cliente desactivado correctamente."
+            });
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 export default new ClienteController();

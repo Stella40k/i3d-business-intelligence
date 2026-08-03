@@ -20,5 +20,20 @@ class ClienteService{
     async findById(id){
         return await clienteRepository.findById(id);
     }
+    async update(id, clienteData){
+        const clienteNormalizado ={
+            ...clienteData,
+            nombre: clienteData.nombre?.trim(),
+            apellido: clienteData.apellido?.trim() || null,
+            telefono: clienteData.telefono?.trim() || null,
+            email: clienteData.email?.trim() || null,
+            empresa: clienteData.empresa?.trim() || null,
+            observaciones: clienteData.observaciones?.trim() || null
+        };
+        return await clienteRepository.update(id, clienteNormalizado);
+    }
+    async delete(id){
+        return await clienteRepository.delete(id);
+    }
 }
 export default new ClienteService();
