@@ -1,1 +1,1 @@
-//export { default as pedidoRoutes } from "./pedido.routes.js";
+export { default as pedidoRoutes } from "./pedido.routes.js";
