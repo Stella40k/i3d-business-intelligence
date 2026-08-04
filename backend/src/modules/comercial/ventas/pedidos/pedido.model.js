@@ -71,7 +71,7 @@ Pedido.init(
         },
         fechaSenia:{
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         fechaEntregaEstimada:{
             type: DataTypes.DATE,
@@ -92,7 +92,7 @@ Pedido.init(
         activo:{
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: false
+            defaultValue: true
         },
 
     },{

@@ -1,8 +1,8 @@
 import Pedido from "./pedido.model.js";
 
 class PedidoRepository{
-    async create(peidoData){
-        return await Pedido.create(peidoData);
+    async create(pedidoData){
+        return await Pedido.create(pedidoData);
     }
     async findAll(){
         return await Pedido.findAll();

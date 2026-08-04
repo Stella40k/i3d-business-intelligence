@@ -5,6 +5,7 @@ import {sequelize} from "./config/database.js"
 
 //importacion de los modelos para q/sequelize lo registre
 import "./modules/comercial/clientes/cliente.model.js";
+import "./modules/comercial/ventas/pedidos/pedido.model.js";
 
 const startServer = async()=>{
     try {
